@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-bg: #fff0f3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--soft-bg);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevents scrollbars during animation */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 10;
+            max-width: 400px;
+            position: relative;
+        }
+
+        h1 { color: var(--primary-pink); }
+
+        button {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover { transform: scale(1.1); }
+
+        .hidden { display: none; }
+
+        /* Floating Hearts Animation */
+        .heart-particle {
+            position: absolute;
+            color: var(--primary-pink);
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="start-screen">
+        <h1>Hey You! ❤️</h1>
+        <p>I made something special for your birthday. Ready to see it?</p>
+        <button onclick="startSurprise()">Open Surprise</button>
+    </div>
+
+    <div class="card hidden" id="message-screen">
+        <h1>Happy Birthday! 🎂</h1>
+        <p id="typed-text"></p>
+        <p style="font-style: italic;">— Forever yours</p>
+    </div>
+
+    <script>
+        function startSurprise() {
+            // Switch screens
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('message-screen').classList.remove('hidden');
+
+            // Start the heart animation
+            setInterval(createHeart, 300);
+
+            // Add the text (You can ask Gemini for a better poem to put here!)
+            const text = "To the most amazing person... May your day be as bright as your smile and as lovely as your heart.";
+            document.getElementById('typed-text').innerText = text;
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 1
